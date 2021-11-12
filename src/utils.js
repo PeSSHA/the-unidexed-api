@@ -1,8 +1,8 @@
-import Config from 'config.js';
-const Web3 = require('web3');
+const config = require('./config.js');
+const output = require('./output.js');
 
 function getContract(contractJson, contractAddress) {
-    return new Config.provider.eth.Contract(contractJson, contractAddress);
+    return new config.Config.provider.eth.Contract(contractJson, contractAddress);
 }
 
 function getParams(event, contractJson) {
@@ -22,12 +22,21 @@ function getParams(event, contractJson) {
 }
 
 function rawDataDecode(params, rawData) {
-    var result = Config.provider.eth.abi.decodeParameters(params, rawData);
+    var result = config.Config.provider.eth.abi.decodeParameters(params, rawData);
     return result;
 }
 
 function addToOutput(params, data) {
+    filteredData = {};
     params.forEach(param => {
-        Output.jsonResult[param.name].push(data[param.name]);        
-    })
+        filteredData[param.name] = data[param.name];
+    });
+    output.Output.jsonResult.push(filteredData);
+}
+
+module.exports = {
+    'getContract': getContract,
+    'getParams': getParams,
+    'rawDataDecode': rawDataDecode,
+    'addToOutput': addToOutput
 }
