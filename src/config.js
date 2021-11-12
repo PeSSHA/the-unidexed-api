@@ -4,6 +4,10 @@ class Config {
     static provider;
 
     static init(pvd) {
-        this.provider = Web3(pvd);
+        this.provider = new Web3(pvd);
     }
+}
+
+module.exports = {
+    'Config': Config
 }
