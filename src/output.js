@@ -1,4 +1,4 @@
-const Parser = require('json2csv');
+const json2csv = require('json2csv');
 
 class Output {
     static jsonResult = [];
@@ -16,8 +16,12 @@ class Output {
     }
 
     static toCsv() {
-        const parser = new Parser(this.fields);
-        const csv = parser.parse(jsonResult);
+        const parser = new json2csv.Parser(this.fields);
+        const csv = parser.parse(this.jsonResult);
         return csv;
     }
+}
+
+module.exports = {
+    'Output': Output
 }
