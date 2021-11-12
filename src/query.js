@@ -8,16 +8,22 @@ async function getContractEvent(req){
         contractJson,
         contractAddress
     );
+    var fromBlock = req.body.fromBlock == null ? 'earliest' : req.body.fromBlock;
+    var toBlock = req.body.toBlock == null ? 'latest' : req.body.toBlock;
     var params = getParams(req.body.event, contractJson);
     Output.reset();
-    Output.init(params);
+    Output.initParams(params);
     var result = await contract.getPastEvents(
-        req.body.event
+        req.body.event,
+        {
+            'fromBlock': fromBlock,
+            'toBlock': toBlock
+        }
     );
     result.forEach(res => {
         var rawData = res.raw.data;
         var decodedRawData = rawDataDecode(params, rawData);
-        addToOutput(params, decodedRawData);
+        Output.jsonResult.push(decodedRawData);
     });
-    
+    return true;
 }
