@@ -1,7 +1,6 @@
-import Output from 'output.js';
-import 'utils.js';
-import 'query.js';
-
+const output = require('./output.js');
+const config = require('./config.js');
+const query = require('./query.js');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -15,10 +14,19 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('combined'));
 
-app.get('/contractEvent', (req, res) => {
-    var result = getContractEvent(req);
+app.get('/contractEvent', async (req, res) => {
+    var provider = req.body.provider;
+    config.Config.init(provider);
+    var result = await query.getContractEvent(req);
     if(result) {
-        res.send(Output.jsonResult);
+        if(req.body.csv == true){
+            res.header('Content-Type', 'text/csv');
+            res.attachment(req.body.event+'_ub.csv');
+            res.send(output.Output.toCsv());
+        }
+        else{
+            res.send(output.Output.jsonResult);
+        }
     }
 });
 
