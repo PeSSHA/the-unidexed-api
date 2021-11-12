@@ -1,13 +1,23 @@
-class Output {
-    static jsonResult = {};
+const Parser = require('json2csv');
 
-    static init(params) {
+class Output {
+    static jsonResult = [];
+    static fields = [];
+
+    static initFields(params) {
         params.forEach(param => {
-            this.jsonResult[param["name"]] = [];
+            this.fields.push(param.name);
         });
     }
 
     static reset() {
-        this.jsonResult = {};
+        this.jsonResult = [];
+        this.fields = [];
+    }
+
+    static toCsv() {
+        const parser = new Parser(this.fields);
+        const csv = parser.parse(jsonResult);
+        return csv;
     }
 }
