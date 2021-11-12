@@ -1,5 +1,5 @@
 {
-  "name": "the-unidexed-api",
+  "name": "unindexed-blocks-api",
   "version": "1.0.0",
   "description": "A Rest API to retrieve block data from unindexed blockchains",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PeSSHA/the-unidexed-api.git"
+    "url": "git+https://github.com/PeSSHA/unindexed-blocks-api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PeSSHA/the-unidexed-api/issues"
+    "url": "https://github.com/PeSSHA/unindexed-blocks-api/issues"
   },
-  "homepage": "https://github.com/PeSSHA/the-unidexed-api#readme",
+  "homepage": "https://github.com/PeSSHA/unindexed-blocks-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
